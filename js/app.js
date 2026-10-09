@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectFilters(data.projects);
   initProjectModal(data.projects);
   initClipboardButtons();
-  initContactForm();
   initScrollspy();
 });
 
@@ -159,8 +158,8 @@ function renderProjects(projects, filter = 'all') {
               <span>Architecture Deep-Dive</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </button>
-            <a href="${proj.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding: 9px 18px; font-size: 0.88rem;">
-              <span>GitHub</span>
+            <a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding: 9px 18px; font-size: 0.88rem;">
+              <span>Website</span>
             </a>
           </div>
         </div>
@@ -269,10 +268,11 @@ function initProjectModal(projects) {
       </div>
 
       <div style="display: flex; gap: 16px;">
-        <a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="flex: 1;">
-          <span>Explore Source / Docs</span>
+        <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="flex: 1;">
+          <span>Visit stockgrid.co.in</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </a>
+        ${project.playUrl ? `<a href="${project.playUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="flex: 1;"><span>Get it on Google Play</span></a>` : ''}
       </div>
     `;
 
@@ -337,51 +337,6 @@ function initClipboardButtons() {
         console.warn('Clipboard write failed:', err);
       }
     });
-  });
-}
-
-/* ==========================================================================
-   10. INTERACTIVE CONTACT FORM
-   ========================================================================== */
-function initContactForm() {
-  const form = document.getElementById('contact-form');
-  const statusDiv = document.getElementById('form-status');
-  const submitBtn = document.getElementById('btn-submit-form');
-
-  if (!form || !statusDiv) return;
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById('form-name').value.trim();
-    const email = document.getElementById('form-email').value.trim();
-    const subject = document.getElementById('form-subject').value.trim();
-    const message = document.getElementById('form-message').value.trim();
-
-    if (!name || !email || !subject || !message) {
-      statusDiv.className = 'form-status error';
-      statusDiv.textContent = 'Please fill out all required fields before sending.';
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      statusDiv.className = 'form-status error';
-      statusDiv.textContent = 'Please enter a valid email address.';
-      return;
-    }
-
-    // Submit state simulation
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = `<span>Sending...</span>`;
-
-    setTimeout(() => {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = `<span>Send Message</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>`;
-      statusDiv.className = 'form-status success';
-      statusDiv.innerHTML = `Thank you, <strong>${escapeHtml(name)}</strong>! Your inquiry has been received. I will review and respond promptly.`;
-      form.reset();
-    }, 800);
   });
 }
 
