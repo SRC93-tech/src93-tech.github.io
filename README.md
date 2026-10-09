@@ -1,29 +1,7 @@
-# SRC93 Tech - developer profile
+# src93-tech.github.io
 
-Source of **https://src93-tech.github.io**, the developer profile of SRC93 (SRC93 Tech), builder of [StockGrid](https://stockgrid.co.in).
+Personal page of SRC93 Tech: https://src93-tech.github.io
 
-Plain HTML, CSS and JavaScript - no build step, no dependencies. GitHub Pages serves the `main` branch root directly.
+One HTML file and one stylesheet - no build step, no scripts. Edit `index.html` and push; GitHub Pages publishes the `main` branch in a minute or two.
 
-## Editing
-
-All text that changes often lives in [`js/data.js`](js/data.js):
-
-- `personal` - name, role, email, links
-- `pillars` - the four "Engineering Philosophy" cards
-- `projects` - project cards and their deep-dive dialog (images in `assets/images/`)
-- `skills` - skill bars
-- `journey` - the timeline, newest first
-
-The hero text, stats bar and contact section are in [`index.html`](index.html). Contact is a plain email link - there is no form or backend.
-
-## Preview locally
-
-```bash
-python -m http.server 8085
-```
-
-Then open http://localhost:8085.
-
-## Related
-
-- [stockgrid-website](https://github.com/SRC93-tech/stockgrid-website) - source of stockgrid.co.in
+Screenshots in `assets/shots/` are the real StockGrid screens from the Google Play listing.
